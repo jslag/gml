@@ -69,6 +69,10 @@ def main ():
       #server.set_debuglevel(1)
       server.ehlo()
       server.starttls()
+      # smtplib won't send auth info without this second ehlo after
+      # starttls -- thanks to
+      # http://bytes.com/topic/python/answers/475531-smtplib-authentication-required-error
+      # for the tip
       server.ehlo()
       server.login(emailname_in, password_in)
       server.sendmail(msg.getaddr('From')[1], emailname_in, fullmsg)
